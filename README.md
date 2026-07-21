@@ -1,4 +1,4 @@
-# {{PROJECT_NAME}}
+# Focus Matafuegos Cloud
 
 Proyecto integrador del módulo Cloud Computing (ITBA).
 

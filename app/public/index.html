@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matafuegos Focus | Seguridad contra incendios en Adrogué</title>
+  <meta name="description" content="26 años protegiendo Adrogué y la zona sur. Mantenimiento, venta e instalación de extintores con certificación ISO 9001, Bureau Veritas y OPDS." />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --azul: #1a3a5c;
+      --azul-claro: #2563eb;
+      --rojo: #cc0000;
+      --blanco: #ffffff;
+      --gris: #f5f7fa;
+      --gris-texto: #4a5568;
+      --gris-oscuro: #2d3748;
+    }
+
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--gris-oscuro); }
+
+    /* NAVBAR */
+    nav {
+      background: var(--azul);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      background: var(--rojo);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .nav-logo span { color: white; font-size: 1.2rem; font-weight: 700; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: white; }
+    .nav-whatsapp {
+      background: #25d366;
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--azul) 0%, #0f2744 100%);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      display: inline-block;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+      line-height: 1.2;
+    }
+    .hero h1 span { color: #ff6b6b; }
+    .hero p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--rojo);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #aa0000; }
+    .btn-whatsapp {
+      background: #25d366;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    /* SECCIONES */
+    section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-bg { background: var(--gris); padding: 4rem 2rem; }
+    .section-bg > * { max-width: 1100px; margin: 0 auto; }
+    h2 { font-size: 2rem; color: var(--azul); margin-bottom: 0.75rem; text-align: center; }
+    .subtitle { color: var(--gris-texto); text-align: center; margin-bottom: 3rem; font-size: 1.1rem; }
+
+    /* CARDS */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+      border-top: 4px solid var(--azul);
+    }
+    .card-icon {
+      background: #e8f0fe;
+      color: var(--azul);
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .card h3 { color: var(--azul); margin-bottom: 0.75rem; font-size: 1.1rem; }
+    .card p { color: var(--gris-texto); line-height: 1.6; font-size: 0.95rem; }
+    .card-highlight {
+      background: #fff3f3;
+      border-left: 4px solid var(--rojo);
+      padding: 0.75rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--rojo);
+      font-weight: 600;
+    }
+
+    /* CERTIFICACIONES */
+    .certs {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .cert-badge {
+      background: white;
+      border: 2px solid var(--azul);
+      color: var(--azul);
+      padding: 0.6rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    /* FORMULARIO */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .contact-item-icon {
+      background: var(--azul);
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-item h4 { color: var(--azul); margin-bottom: 0.25rem; }
+    .contact-item p { color: var(--gris-texto); font-size: 0.95rem; }
+    form { display: flex; flex-direction: column; gap: 1rem; }
+    input, textarea, select {
+      padding: 0.85rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--azul); }
+    textarea { resize: vertical; min-height: 120px; }
+    .btn-submit {
+      background: var(--azul);
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover { background: #0f2744; }
+
+    /* FOOTER */
+    footer {
+      background: var(--azul);
+      color: rgba(255,255,255,0.8);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    footer h3 { color: white; margin-bottom: 1rem; font-size: 1.3rem; }
+    .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin: 1.5rem 0; }
+    .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; }
+    .footer-links a:hover { color: white; }
+    .footer-copy { font-size: 0.85rem; margin-top: 1.5rem; color: rgba(255,255,255,0.5); }
+
+    /* WHATSAPP FLOTANTE */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #25d366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(37,211,102,0.4);
+      z-index: 99;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .hero { padding: 3rem 1.5rem; min-height: 70vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">🔥</div>
+      <span>Matafuegos Focus</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#por-que-elegirnos">Por qué elegirnos</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="https://wa.me/5491173682411" class="nav-whatsapp">💬 WhatsApp</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero" id="inicio">
+    <div class="hero-badge">🛡️ 26 años protegiendo Adrogué y la zona sur</div>
+    <h1>Protegé lo que<br/><span>más te importa</span></h1>
+    <p>Mantenimiento, venta e instalación de extintores con la experiencia y las certificaciones que tu seguridad necesita.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">Solicitá tu presupuesto sin cargo</a>
+      <a href="https://wa.me/5491173682411" class="btn-whatsapp">💬 Hablar por WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- POR QUÉ ELEGIRNOS -->
+  <div class="section-bg" id="por-que-elegirnos">
+    <section>
+      <h2>Por qué elegirnos</h2>
+      <p class="subtitle">Trayectoria, respaldo técnico y certificaciones que avalan nuestro trabajo.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🏆</div>
+          <h3>26 años de experiencia</h3>
+          <p>Más de dos décadas y media protegiendo hogares, comercios e industrias de Adrogué y la zona sur.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">👷</div>
+          <h3>Técnicos matriculados</h3>
+          <p>Nuestro equipo está formado por profesionales matriculados que asesoran cada caso particular con criterio técnico.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Respuesta rápida</h3>
+          <p>Servicio ágil de mantenimiento, retiro y entrega para que nunca te quedes sin protección.</p>
+        </div>
+      </div>
+      <div class="certs">
+        <div class="cert-badge">✓ Bureau Veritas</div>
+        <div class="cert-badge">✓ ISO 9001</div>
+        <div class="cert-badge">✓ OPDS</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <h2>Nuestros servicios</h2>
+    <p class="subtitle">Soluciones integrales de seguridad contra incendios.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🔧</div>
+        <h3>Mantenimiento de extintores</h3>
+        <p>Recarga, inspección y control periódico según normativa vigente.</p>
+        <div class="card-highlight">Al retirar los equipos dejamos un extintor sustituto hasta que estén listos.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">💧</div>
+        <h3>Pruebas hidráulicas</h3>
+        <p>Verificamos la resistencia de los matafuegos para garantizar su correcto funcionamiento.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏗️</div>
+        <h3>Instalaciones contra incendio</h3>
+        <p>Diseño e instalación de sistemas de protección contra incendios para hogares y empresas.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>Asesoramiento técnico</h3>
+        <p>Un técnico matriculado te guía para elegir el equipamiento adecuado a cada espacio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <div class="section-bg" id="productos">
+    <section>
+      <h2>Nuestros productos</h2>
+      <p class="subtitle">Todo el equipamiento de seguridad que tu espacio necesita.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🧯</div>
+          <h3>Extintores</h3>
+          <p>Polvo ABC, CO2 y agua para cada tipo de riesgo. Distintas capacidades disponibles.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🚪</div>
+          <h3>Gabinetes</h3>
+          <p>Gabinetes normalizados para mangueras y equipos contra incendio.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧰</div>
+          <h3>Botiquines</h3>
+          <p>Botiquines de primeros auxilios para hogares y empresas.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚠️</div>
+          <h3>Cartelería de seguridad</h3>
+          <p>Señalética normalizada de evacuación y prevención.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">👕</div>
+          <h3>Ropa de trabajo</h3>
+          <p>Indumentaria de seguridad laboral. Posibilidad de estampado con el logo de tu empresa.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💧</div>
+          <h3>Recargas SodaStream</h3>
+          <p>Recarga de garrafitas SodaStream para hogares y oficinas.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <h2>Contactanos</h2>
+    <p class="subtitle">Escribinos y te asesoramos sin cargo sobre la mejor solución para tu espacio.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <h4>Dirección</h4>
+            <p>Av. Hipólito Yrigoyen 13345<br/>Adrogué (1846), Buenos Aires</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">💬</div>
+          <div>
+            <h4>WhatsApp</h4>
+            <p><a href="https://wa.me/5491173682411" style="color: var(--azul);">+54 11 7368-2411</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div>
+            <h4>Horario de atención</h4>
+            <p>Lunes a Viernes: 9 a 18hs<br/>Sábados: 9 a 13hs</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📸</div>
+          <div>
+            <h4>Instagram</h4>
+            <p><a href="https://instagram.com/focusmat_adrogue" style="color: var(--azul);">@focusmat_adrogue</a></p>
+          </div>
+        </div>
+      </div>
+      <form action="https://wa.me/5491173682411" method="get" target="_blank">
+        <input type="text" name="nombre" placeholder="Nombre completo" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="text" name="empresa" placeholder="Empresa (opcional)" />
+        <input type="tel" name="telefono" placeholder="Teléfono" />
+        <textarea name="consulta" placeholder="¿En qué podemos ayudarte?"></textarea>
+        <button type="submit" class="btn-submit">Enviar consulta</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <h3>Matafuegos Focus</h3>
+    <p>Av. Hipólito Yrigoyen 13345, Adrogué (1846), Buenos Aires</p>
+    <div class="footer-links">
+      <a href="#por-que-elegirnos">Por qué elegirnos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#productos">Productos</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://instagram.com/focusmat_adrogue">Instagram</a>
+      <a href="https://wa.me/5491173682411">WhatsApp</a>
+    </div>
+    <div class="footer-copy">
+      © 2026 Matafuegos Focus — Todos los derechos reservados<br/>
+      Certificaciones: Bureau Veritas | ISO 9001 | OPDS
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a href="https://wa.me/5491173682411" class="whatsapp-float" title="Contactar por WhatsApp">💬</a>
+
+</body>
+</html>

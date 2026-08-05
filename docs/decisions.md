@@ -25,6 +25,10 @@ Contexto: S3 puede servir archivos directamente, pero desde una sola región. Cl
 Alternativas: servir S3 directo, usar otro CDN (Cloudflare).
 Tradeoff: CloudFront agrega una capa de configuración. A cambio: HTTPS, dominio propio, caché y mejor performance en Argentina.
 Resultado: CloudFront frente a S3 — el bucket queda privado, solo CloudFront puede leerlo.
+Nota: en el entorno de desarrollo local (LocalStack), el bucket queda con acceso 
+público para simplificar las pruebas. En producción el bucket es privado y solo 
+CloudFront puede leerlo via Origin Access Control (OAC). Este es un estado 
+transitorio documentado — ver Semana 3 del gantt.md.
 
 ### 003 - IAM con privilegio mínimo para acceso a S3
 

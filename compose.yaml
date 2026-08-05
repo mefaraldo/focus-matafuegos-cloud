@@ -1,11 +1,13 @@
-# Servicios del proyecto.
-# Agregá acá los que tu arquitectura necesite.
-# Referencias en los labs del curso (cloud-foundations-lab):
-#   - postgres (lab 02)
-#   - minio (lab 02)
-#   - localstack (lab 04+)
-#   - redis, redpanda (labs siguientes)
+services:
+  localstack:
+    image: localstack/localstack:3
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,iam,cloudfront,sts
+      - DEFAULT_REGION=us-east-1
+    volumes:
+      - localstack-data:/var/lib/localstack
 
-services: {}
-
-volumes: {}
+volumes:
+  localstack-data:

@@ -51,14 +51,11 @@ Route 53 → dominio apuntando a CloudFront
 
 | Componente | Servicio AWS | Estado |
 |---|---|---|
-| Landing page (HTML/CSS/JS) | S3 bucket con static website hosting | por implementar |
-| CDN | CloudFront distribution | por implementar |
-| Seguridad | IAM + bucket policy | por implementar |
-| Formulario de contacto | SES | por implementar |
-| Dominio | Route 53 | por implementar |
+| Landing page (HTML/CSS/JS) | S3 bucket con static website hosting | Completado |
+| CDN | CloudFront distribution | Pendiente (Despliegue en AWS real) |
+| Seguridad | IAM + bucket policy | Completado |
+| Formulario de contacto | SES | Pendiente (Despliegue en AWS real) |
+| Dominio | Route 53 | Pendiente (Despliegue en AWS real) |
 
 ---
 
-## Decisiones pendientes
-
-- Ver docs/decisions.md

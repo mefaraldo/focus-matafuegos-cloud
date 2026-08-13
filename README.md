@@ -2,19 +2,19 @@
 **Proyecto Final — Certificación Cloud Architecture ITBA**
 
 Migración de la landing page de Focus Matafuegos a AWS.
-Empresa de mantenimiento y venta de extintores con 26 años de trayectoria en Adrogué, Buenos Aires.
+Empresa de mantenimiento y venta de extintores.
 
 ---
 
 ## ¿Qué hace este proyecto?
 
-Despliega una landing page estática profesional en AWS usando S3, CloudFront, IAM, SES y Route 53.
-Todo corre en LocalStack (simulador gratuito de AWS) — sin cuenta de AWS real, sin costo.
+Despliega una landing page estática en AWS usando S3, CloudFront, IAM, SES y Route 53.
+Todo corre en LocalStack.
 
 ## Servicios AWS utilizados
 
 | Servicio | Para qué |
-|---|---|
+
 | S3 | Hosting estático de la landing page |
 | CloudFront | CDN — distribuye el contenido rápido en todo el país |
 | IAM | Roles y permisos con privilegio mínimo |
@@ -63,7 +63,7 @@ La landing page queda disponible en:
 ## Documentación
 
 | Archivo | Contenido |
-|---|---|
+
 | `docs/architecture.md` | Arquitectura y servicios AWS |
 | `docs/decisions.md` | Decisiones técnicas justificadas |
 | `docs/costs.md` | Estimación de costos ($1.61/mes) |

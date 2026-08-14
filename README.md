@@ -9,7 +9,8 @@ Empresa de mantenimiento y venta de extintores.
 ## ¿Qué hace este proyecto?
 
 Despliega una landing page estática en AWS usando S3, CloudFront, IAM, SES y Route 53.
-Todo corre en LocalStack.
+El script levanta S3, IAM, CloudFront y SES contra LocalStack. 
+
 
 ## Servicios AWS utilizados
 

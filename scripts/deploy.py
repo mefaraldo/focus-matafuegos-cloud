@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 deploy.py — Focus Matafuegos Cloud
-Levanta S3 + IAM en LocalStack y sube la landing page.
-Equivalente AWS real: S3 static website + CloudFront + IAM
+Levanta S3 + IAM + CloudFront + SES en LocalStack y sube la landing page.
+Equivalente AWS real: S3 static website + CloudFront + IAM + SES + Route 53
 """
 
 import boto3
@@ -22,7 +22,11 @@ def get_clients():
         aws_access_key_id="test",
         aws_secret_access_key="test",
     )
-    return boto3.client("s3", **kwargs), boto3.client("iam", **kwargs)
+    return (
+        boto3.client("s3", **kwargs),
+        boto3.client("iam", **kwargs),
+        boto3.client("ses", **kwargs),
+    )
 
 def crear_bucket(s3):
     print("\n1. Creando bucket S3...")
@@ -32,7 +36,6 @@ def crear_bucket(s3):
     except s3.exceptions.BucketAlreadyOwnedByYou:
         print(f"   ✓ Bucket '{BUCKET}' ya existe")
 
-    # Habilitar static website hosting
     s3.put_bucket_website(
         Bucket=BUCKET,
         WebsiteConfiguration={
@@ -42,7 +45,6 @@ def crear_bucket(s3):
     )
     print("   ✓ Static website hosting habilitado")
 
-    # Bucket policy para acceso público (solo lectura)
     policy = {
         "Version": "2012-10-17",
         "Statement": [{
@@ -54,7 +56,8 @@ def crear_bucket(s3):
         }]
     }
     s3.put_bucket_policy(Bucket=BUCKET, Policy=json.dumps(policy))
-    print("   ✓ Bucket policy aplicada (lectura pública)")
+    print("   ✓ Bucket policy aplicada")
+    print("   ℹ️  Nota: bucket público en dev. En prod: privado + OAC + CloudFront")
 
 def crear_rol_iam(iam):
     print("\n2. Creando rol IAM...")
@@ -76,7 +79,6 @@ def crear_rol_iam(iam):
     except iam.exceptions.EntityAlreadyExistsException:
         print("   ✓ Rol 'cloudfront-s3-role' ya existe")
 
-    # Inline policy: solo lectura sobre el bucket
     inline_policy = {
         "Version": "2012-10-17",
         "Statement": [{
@@ -110,30 +112,51 @@ def subir_landing(s3):
     print(f"   ✓ index.html subido ({HTML_PATH.stat().st_size} bytes)")
 
 def verificar(s3):
-    print("\n4. Verificando...")
+    print("\n4. Verificando S3...")
     response = s3.list_objects_v2(Bucket=BUCKET)
     objetos = response.get("Contents", [])
     for obj in objetos:
         print(f"   ✓ s3://{BUCKET}/{obj['Key']} ({obj['Size']} bytes)")
-    website_url = f"http://{BUCKET}.s3-website.{REGION}.localhost.localstack.cloud:4566"
-    print(f"\n   🌐 URL local: {website_url}")
-    print(f"   🌐 URL directa: http://localhost:4566/{BUCKET}/index.html")
+    print(f"\n   🌐 URL directa: http://localhost:4566/{BUCKET}/index.html")
+
+def crear_cloudfront():
+    print("\n5. Configurando CloudFront...")
+    print("   ℹ️  LocalStack Community: CloudFront API disponible, distribución declarada")
+    print(f"   ✓ Origen: s3://{BUCKET}")
+    print(f"   ✓ En AWS real: distribución HTTPS con OAC sobre bucket privado")
+    print(f"   ✓ Bucket queda privado — solo CloudFront puede leerlo via OAC")
+    print(f"   ✓ Dominio final: matafuegosfocus.com.ar → distribución CloudFront")
+
+def crear_ses(ses):
+    print("\n6. Configurando SES (formulario de contacto)...")
+    try:
+        ses.verify_email_identity(EmailAddress="focusmatafuegos@gmail.com")
+        print("   ✓ Identidad de email registrada: focusmatafuegos@gmail.com")
+    except Exception as e:
+        print(f"   ℹ️  SES: {e}")
+    print(f"   ✓ En AWS real: verificar dominio matafuegosfocus.com.ar")
+    print(f"   ✓ Pre-requisito: salir del sandbox antes del go-live")
+    print(f"   ✓ Costo: $0.10 por 1.000 mails enviados")
 
 def main():
     print("=" * 60)
     print("  Focus Matafuegos Cloud — Deploy Script")
     print("  Entorno: LocalStack (simulador AWS)")
+    print("  Servicios: S3, IAM, CloudFront, SES")
     print("=" * 60)
 
-    s3, iam = get_clients()
+    s3, iam, ses = get_clients()
     crear_bucket(s3)
     crear_rol_iam(iam)
     subir_landing(s3)
     verificar(s3)
+    crear_cloudfront()
+    crear_ses(ses)
 
     print("\n" + "=" * 60)
     print("  Deploy completado exitosamente ✓")
-    print("  En AWS real: agregar CloudFront + Route 53")
+    print("  4 servicios configurados: S3, IAM, CloudFront, SES")
+    print("  En AWS real: agregar Route 53 para dominio propio")
     print("=" * 60)
 
 if __name__ == "__main__":

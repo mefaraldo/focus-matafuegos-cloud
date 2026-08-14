@@ -53,13 +53,17 @@ alias awslocal="aws --endpoint-url=http://localhost:4566"
 python3 scripts/deploy.py
 ```
 
-### 5. Verificar
+### 5. Verificar que el archivo se subió
 ```bash
 awslocal s3 ls s3://focus-matafuegos-landing
 ```
 
-La landing page queda disponible en:
-`http://localhost:4566/focus-matafuegos-landing/index.html`
+### 6. Ver la landing page en el navegador
+```bash
+cd app/public
+python3 -m http.server 8080
+```
+VS Code va a mostrar una notificación para abrir el puerto — hacé click en **"Abrir en el navegador"**. O buscá el puerto **8080** en la pestaña **"Puertos"** y hacé click en el link.
 
 ## Documentación
 
